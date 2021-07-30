@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>User Management System</title>
-
+	<title>Registration</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
 </head>
 
 <body>
@@ -51,31 +49,24 @@
 		</nav>
 		<br>
 		<br>
-		<h1 align="center">User List</h1>
-		<a th:href="@{/showNewUserForm}" class="btn btn-primary btn-sm mb-3"> Add User </a>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-3">
 
-		<table border="1" class="table table-striped table-responsive-md">
-			<thead>
-				<tr align="center">
-					<th>User Name</th>
-					<th>Password</th>
-					<th>Email</th>
-					<th>Phone</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="user : ${listUser}" align="center">
-					<td th:text="${user.userName}"></td>
-					<td th:text="${user.pass}"></td>
-					<td th:text="${user.email}"></td>
-					<td th:text="${user.phone}"></td>
-					<td> <a th:href="@{/showFormForUpdate/{id}(id=${user.id})}" class="btn btn-primary">Update</a>
-						<a th:href="@{/deleteUser/{id}(id=${user.id})}" class="btn btn-danger">Delete</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+				<h1>Registration</h1>
+				<form action="@{/registration}" method="post" th:object="${user}">
+				
+					<input type="text" th:field="*{userName}" placeholder="User Name" class="form-control mb-4 col-4">
+
+					<input type="text" th:field="*{pass}" placeholder="Password" class="form-control mb-4 col-4">
+
+					<input type="text" th:field="*{email}" placeholder="Email" class="form-control mb-4 col-4">
+
+					<input type="text" th:field="*{phone}" placeholder="Phone" class="form-control mb-4 col-4">
+
+					<button type="submit" class="btn btn-success"> Register</button>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 

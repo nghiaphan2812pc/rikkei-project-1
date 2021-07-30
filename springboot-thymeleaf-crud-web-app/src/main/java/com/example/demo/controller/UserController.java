@@ -15,12 +15,19 @@ import com.example.demo.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
+
+	public UserController(UserService userService) {
+		super();
+		this.userService = userService;
+	}
+	
 	// display list of user
-	@GetMapping("/")
+	@GetMapping("/user")
 	public String viewListUser(Model model) {
-		model.addAttribute("listUser",userService.getAllUser());
+		model.addAttribute("listUser", userService.getAllUser());
 		return "user";
 	}
+
 	@GetMapping("/showNewUserForm")
 	// create model attribute to bind form data
 	public String ShowNewUserForm(Model model) {
@@ -28,21 +35,24 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "new_user";
 	}
-	@PostMapping("/saveUser")
+
+	@PostMapping("/saveUserUpdate")
 	public String saveUser(@ModelAttribute("user") User user) {
 		// save user to db
-		userService.saveUser(user);
-		return "redirect:/";
+		userService.saveUserUpdate(user);
+		return "redirect:/user";
 	}
+
 	@GetMapping("/showFormForUpdate/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 		User user = userService.getUserById(id);
 		model.addAttribute("user", user);
 		return "update_user";
 	}
+
 	@GetMapping("/deleteUser/{id}")
-	public String deteleUser(@PathVariable(value = "id")long id){
+	public String deteleUser(@PathVariable(value = "id") long id) {
 		userService.deleteUser(id);
-		return "redirect:/";
+		return "redirect:/user";
 	}
 }
